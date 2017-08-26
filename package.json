@@ -40,6 +40,7 @@
     "react-redux-subspace": "^2.0.3-alpha",
     "react-test-renderer": "^15.6.1",
     "redux": "^3.7.2",
+    "redux-form": "^7.0.3",
     "redux-loop": "^3.1.2",
     "redux-subspace": "^2.0.3-alpha",
     "redux-subspace-loop": "^2.0.4-alpha",
