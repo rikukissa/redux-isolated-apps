@@ -46,6 +46,6 @@ describe("User creator", () => {
   it("doesn't change other UserCreators' name field value", () => {
     const app = createApp();
     inputNameValue(app.find(UserCreator).first(), "Jorma");
-    expect(app.find(UserCreator).first().find("input").props().value).toBe("");
+    expect(app.find(UserCreator).last().find("input").props().value).toBe("");
   });
 });
