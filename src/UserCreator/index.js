@@ -1,6 +1,30 @@
 import React, { Component } from "react";
 import { updateNameField, createUser } from "./actions";
-import { connect } from "react-redux";
+import reducer from "./reducer";
+
+import { connect, Provider } from "react-redux";
+import { createStore } from "redux";
+
+function isolate(WrappedComponent) {
+  return class Widget extends Component {
+    constructor(props) {
+      super(props);
+      this.displayName = props.id;
+      this.store = createStore(
+        reducer,
+        window.__REDUX_DEVTOOLS_EXTENSION__ &&
+          window.__REDUX_DEVTOOLS_EXTENSION__({ name: props.id })
+      );
+    }
+    render() {
+      return (
+        <Provider store={this.store}>
+          <WrappedComponent {...this.props} />
+        </Provider>
+      );
+    }
+  };
+}
 
 class UserCreator extends Component {
   updateNameField = event => {
@@ -10,6 +34,14 @@ class UserCreator extends Component {
     event.preventDefault();
     this.props.createUser();
   };
+
+  componentWillReceiveProps(nextProps) {
+    const { createdUser } = nextProps;
+    if (createdUser && !this.props.createdUser) {
+      this.props.onUserCreated(createdUser);
+    }
+  }
+
   render() {
     const { name } = this.props;
     return (
@@ -22,10 +54,14 @@ class UserCreator extends Component {
   }
 }
 
-const mapStateToProps = state => ({ name: state.name });
+const mapStateToProps = state => ({
+  name: state.name,
+  createdUser: state.createdUser
+});
+
 const mapDispatchToProps = {
   updateNameField: updateNameField,
   createUser: createUser
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserCreator);
+export default isolate(connect(mapStateToProps, mapDispatchToProps)(UserCreator));

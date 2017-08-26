@@ -2,14 +2,16 @@ import React, { Component } from "react";
 import UserCreator from "./UserCreator";
 import { connect } from "react-redux";
 
+import { userCreated } from "./state/users";
+
 class App extends Component {
   render() {
-    const { users } = this.props;
+    const { users, createUser } = this.props;
     return (
       <div>
-        <UserCreator />
-        <UserCreator />
-        <UserCreator />
+        <UserCreator onUserCreated={createUser} id="userCreator1" />
+        <UserCreator onUserCreated={createUser} id="userCreator2" />
+        <UserCreator onUserCreated={createUser} id="userCreator3" />
         <div id="userList">
           {users.map(({ name }) =>
             <div key={name} className="user">
@@ -28,4 +30,8 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = {
+  createUser: userCreated
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
