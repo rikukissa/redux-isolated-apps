@@ -1,6 +1,6 @@
-import { combineReducers } from "redux";
-import { namespaced } from "redux-subspace";
+import { namespaced } from "redux-subspace-loop";
 import userCreatorReducer from "../UserCreator/reducer";
+import { combineReducers } from "redux-loop";
 
 export default combineReducers({
   userCreator1: namespaced("userCreator1")(userCreatorReducer),

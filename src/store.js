@@ -1,10 +1,9 @@
-import { compose, combineReducers, createStore } from "redux";
-import { applyMiddleware } from "redux-subspace";
+import { compose, createStore } from "redux";
 import appReducer from "./state/app";
 import usersReducer from "./state/users";
-import thunk from "redux-thunk";
+import { combineReducers, install } from "redux-loop";
 
-const enhancers = [applyMiddleware(thunk)];
+const enhancers = [install()];
 
 if (window.__REDUX_DEVTOOLS_EXTENSION__) {
   enhancers.push(window.__REDUX_DEVTOOLS_EXTENSION__());

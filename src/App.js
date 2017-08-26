@@ -6,6 +6,7 @@ import { SubspaceProvider } from "react-redux-subspace";
 class App extends Component {
   render() {
     const { users } = this.props;
+
     return (
       <div>
         <SubspaceProvider mapState={state => state.app.userCreator1} namespace="userCreator1">
