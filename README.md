@@ -10,6 +10,7 @@ I've written a few [tests](https://github.com/rikukissa/redux-isolated-apps/blob
 ## Methods & libraries I've tried so far
 
 ### Nested stores
+![](https://travis-ci.org/rikukissa/redux-isolated-apps.svg?branch=substores)
 [Pull request](https://github.com/rikukissa/redux-isolated-apps/pull/2)
 
 I got this idea from [Redux's documentation](http://redux.js.org/docs/recipes/IsolatingSubapps.html). It's fairly simple to see what's going on just by looking at the code and I actually managed to get everything working with this method as well. At first my main concern was whether the tooling will play well with multiple stores, but it turns out that at least Redux DevTools lets you choose which store you want to observe.
@@ -28,6 +29,7 @@ I got this idea from [Redux's documentation](http://redux.js.org/docs/recipes/Is
         - Transforming reducer events into callback prop calls gets a bit hairy
 
 ### [redux-subspace](https://github.com/ioof-holdings/redux-subspace)
+![](https://travis-ci.org/rikukissa/redux-isolated-apps.svg?branch=subspaces)
 [Pull request](https://github.com/rikukissa/redux-isolated-apps/pull/3)
 
 🏆 I bumped into this by accident while googling this subject. At first the documentation was a bit off-putting, but once I got desperate enough, I decided to give it a go. I definitely recommend checking it out, since it has been easily the best solution I've found so far. Once you start using it, you will find the documentation actually quite nicely structured.
