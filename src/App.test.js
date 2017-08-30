@@ -13,6 +13,10 @@ function createApp() {
   );
 }
 
+function resolveAllPromises() {
+  return new Promise(resolve => setImmediate(resolve));
+}
+
 function getUserList(app) {
   return app.find("#userList");
 }
@@ -38,11 +42,13 @@ describe("App", () => {
 });
 
 describe("User creator", () => {
-  it("adds new user to user store when submitted", () => {
+  it("adds new user to user store when submitted", async () => {
     const app = createApp();
     createUser(app.find(UserCreator).first());
+    await resolveAllPromises();
     expect(getUserList(app).find(".user").length).toBe(1);
   });
+
   it("doesn't change other UserCreators' name field value", () => {
     const app = createApp();
     inputNameValue(app.find(UserCreator).first(), "Jorma");

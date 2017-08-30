@@ -5266,9 +5266,23 @@ reduce-function-call@^1.0.1:
   dependencies:
     balanced-match "^0.4.2"
 
+redux-loop@^3.1.2:
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/redux-loop/-/redux-loop-3.1.2.tgz#5abbae1bb96ecaff1a51dcbb8b8978c6166b1522"
+
+redux-subspace-loop@^2.0.4-alpha:
+  version "2.0.4-alpha"
+  resolved "https://registry.yarnpkg.com/redux-subspace-loop/-/redux-subspace-loop-2.0.4-alpha.tgz#d0c1172ad010aa670ece9a2e6bd9e1b28eea7abc"
+  dependencies:
+    redux-subspace "^2.0.4-alpha"
+
 redux-subspace@^2.0.3-alpha:
   version "2.0.3-alpha"
   resolved "https://registry.yarnpkg.com/redux-subspace/-/redux-subspace-2.0.3-alpha.tgz#c785e931224e122fe3ce4f744c79f7c9ed43a54f"
+
+redux-subspace@^2.0.4-alpha:
+  version "2.0.4-alpha"
+  resolved "https://registry.yarnpkg.com/redux-subspace/-/redux-subspace-2.0.4-alpha.tgz#31b8b380e6d39879b12b666ac9956a5e72151671"
 
 redux-thunk@^2.2.0:
   version "2.2.0"
