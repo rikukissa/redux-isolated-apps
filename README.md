@@ -36,6 +36,10 @@ I got this idea from [Redux's documentation](http://redux.js.org/docs/recipes/Is
 
 🏆 I bumped into this by accident while googling this subject. At first the documentation was a bit off-putting, but once I got desperate enough, I decided to give it a go. I definitely recommend checking it out, since it has been easily the best solution I've found so far. Once you start using it, you will find the documentation actually quite nicely structured.
 
+Besides just offering a solution to the problem I described above, I wanted to make sure it also works with other libraries we're often using in our apps. There are currently 2 different branches I made for this:
+- ![](https://travis-ci.org/rikukissa/redux-isolated-apps.svg?branch=subspaces-redux-loop) [redux-loop](https://github.com/rikukissa/redux-isolated-apps/pull/4)
+- ![](https://travis-ci.org/rikukissa/redux-isolated-apps.svg?branch=subspaces-redux-form) [redux-form](https://github.com/rikukissa/redux-isolated-apps/pull/6)
+
 **Pros**:
 - Easy to use, well tested & documented
 - Integrates well with middlewares and store enhancers like redux-saga, redux-observable & redux-loop
