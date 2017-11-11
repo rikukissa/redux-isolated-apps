@@ -22,6 +22,8 @@ I got this idea from [Redux's documentation](http://redux.js.org/docs/recipes/Is
 - No additional dependencies needed
 - Minimal code changes required when isolating pieces of UI
 - Easy integration with redux-loop, redux-forms etc
+- You can reuse the component dynamically anywhere without needing to explicitely define it in reducer
+  - App store state remains a bit cleaner
 
 **Cons:**
 - No way of calling global actions
@@ -46,6 +48,6 @@ Besides just offering a solution to the problem I described above, I wanted to m
 
 **Cons:**
 - It didn't support redux-loop when I first started using it, but I managed to fix this by writing a wrapper function, that now can be found as the [`redux-subspace-loop`](https://github.com/ioof-holdings/redux-subspace/tree/master/packages/redux-subspace-loop) package on npm.
-
+- 
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
