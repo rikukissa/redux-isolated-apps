@@ -26,7 +26,7 @@ I got this idea from [Redux's documentation](http://redux.js.org/docs/recipes/Is
   - App store state remains a bit cleaner
 
 **Cons:**
-- No way of calling global actions
+- No way of calling global actions _(Not sure if this is only a bad thing)_
   - **Solutions:**
     - Adding callback props to widget
       - **Cons:**
