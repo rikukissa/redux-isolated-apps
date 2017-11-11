@@ -1,8 +1,15 @@
 # Scaling a Redux app
 
-The idea of this repository is to provide a sandbox for testing different methods of making a Redux app more scalable. Currently in the master branch, I have a component called [`<UserCreator />`](https://github.com/rikukissa/redux-isolated-apps/tree/master/src/UserCreator) that has the purpose of being a component/widget/fragment that the user would use for creating new users. Basically it's just an text input and a submit button.
+The idea of this repository is to provide a sandbox for testing different methods of making a Redux app more scalable. Currently on the master branch, I have a component called [`<UserCreator />`](https://github.com/rikukissa/redux-isolated-apps/tree/master/src/UserCreator) that has the purpose of being a component/widget/fragment that the user would use for creating new users. Basically it's just an text input and a submit button.
 
 From the developer's point of view, I would want to be able to include this component anywhere in my app, without always having to manually connect to a store. So in the best case scenario, the only thing you would need is a `<UserCreator />` tag.
+
+**Few design principles for `<UserCreator />`:**
+- It should not know anything about being isolated
+  - Its implementation should look exactly like normal container's
+- It communicates to outer world only via props
+- It can be attached anywhere on the app without any additional setup
+
 I would also want it to be isolated in a way that it wouldn't share any state with other UserCreators in my app. In the future it will include a lot of logic (both async and sync), and for that reason I want to be able to leverage the action/action creator/reducer pattern Redux provides.
 
 I've written a few [tests](https://github.com/rikukissa/redux-isolated-apps/blob/master/src/App.test.js) to make these requirements a bit clearer, but unfortunately in the master branch some of them are failing. You can run them by running `yarn test` or `npm test`. All the relevant code for this endeavour lives under the `src` directory.
