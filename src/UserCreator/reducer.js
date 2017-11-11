@@ -1,9 +1,7 @@
 import { UPDATE_NAME_FIELD, CREATE_USER } from "./actions";
 
 const initialState = {
-  name: "",
-  // Only way of getting the information back to the component..
-  createdUser: null
+  name: ""
 };
 
 export default function(state = initialState, action) {
@@ -11,7 +9,7 @@ export default function(state = initialState, action) {
     case UPDATE_NAME_FIELD:
       return { ...state, name: action.payload };
     case CREATE_USER:
-      return { ...state, createdUser: { name: state.name } };
+      return state;
     default:
       return state;
   }
