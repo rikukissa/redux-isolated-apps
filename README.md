@@ -9,6 +9,8 @@ From the developer's point of view, I would want to be able to include this comp
   - Its implementation should look exactly like normal container's
 - It communicates to outer world only via props
 - It can be attached anywhere on the app without any additional setup
+- Middleware / enhancers used in its reducer / action creator implementation should be completely independent from app's
+  - e.g. Using redux-saga as a part of UserCreator does not mean it should be also added to `src/store.js`
 
 I would also want it to be isolated in a way that it wouldn't share any state with other UserCreators in my app. In the future it will include a lot of logic (both async and sync), and for that reason I want to be able to leverage the action/action creator/reducer pattern Redux provides.
 
