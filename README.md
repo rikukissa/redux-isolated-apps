@@ -47,7 +47,9 @@ Besides just offering a solution to the problem I described above, I wanted to m
 - Integrates well with middlewares and store enhancers like redux-saga, redux-observable & redux-loop
 
 **Cons:**
-- It didn't support redux-loop when I first started using it, but I managed to fix this by writing a wrapper function, that now can be found as the [`redux-subspace-loop`](https://github.com/ioof-holdings/redux-subspace/tree/master/packages/redux-subspace-loop) package on npm.
-- 
+- Subspaced component's state becomes a part of your app's store state, which by default means, that you have to define a location for that explicitly in your reducer. This makes it a bit tricky to dynamically add new subspaced components. However, there is an additional library [redux-dynamic-reducer](https://github.com/ioof-holdings/redux-dynamic-reducer) for addressing this problem.
+- The reducer & action creators are dependant on the main app's middlewares / store enhancers. Using redux-thunk / redux-loop in the subspaced component's logic forces the app to also have them installed. This is not a problem with substores.
+- It didn't support redux-loop when I first started using it, but I managed to fix this by writing a wrapper function, that now can be found as the [`redux-subspace-loop`](https://github.com/ioof-holdings/redux-subspace/tree/master/packages/redux-subspace-loop) package on npm. 
+
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
