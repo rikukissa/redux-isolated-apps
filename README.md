@@ -1,4 +1,4 @@
-# Scaling a Redux app
+# Scaling a Redux app - reusable containers
 
 The idea of this repository is to provide a sandbox for testing different methods of making a Redux app more scalable. Currently on the master branch, I have a component called [`<UserCreator />`](https://github.com/rikukissa/redux-isolated-apps/tree/master/src/UserCreator) that has the purpose of being a component/widget/fragment that the user would use for creating new users. Basically it's just an text input and a submit button.
 
@@ -8,6 +8,7 @@ From the developer's point of view, I would want to be able to include this comp
 - It should not know anything about being isolated
   - Its implementation should look exactly like normal container's
 - It communicates to outer world only via props
+  - It can only access its own state + state given to it as props
 - It can be attached anywhere on the app without any additional setup
 - Middleware / enhancers used in its reducer / action creator implementation should be completely independent from app's
   - e.g. Using redux-saga as a part of UserCreator does not mean it should be also added to `src/store.js`
