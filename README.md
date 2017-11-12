@@ -1,6 +1,6 @@
 # Scaling a Redux app - reusable containers
 
-![Diagram](https://raw.githubusercontent.com/rikukissa/redux-isolated-apps/master/diagram.png)
+<img src="https://raw.githubusercontent.com/rikukissa/redux-isolated-apps/master/diagram.png" width="276" />
 
 The idea of this repository is to provide a sandbox for testing different methods of making a Redux app more scalable. Currently on the master branch, I have a component called [`<UserCreator />`](https://github.com/rikukissa/redux-isolated-apps/tree/master/src/UserCreator) that has the purpose of being a component/widget/fragment that the user would use for creating new users. Basically it's just an text input and a submit button.
 
