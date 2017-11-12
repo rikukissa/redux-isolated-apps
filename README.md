@@ -57,20 +57,23 @@ I got this idea from [Redux's documentation](http://redux.js.org/docs/recipes/Is
 ![](https://travis-ci.org/rikukissa/redux-isolated-apps.svg?branch=subspaces)
 [Pull request](https://github.com/rikukissa/redux-isolated-apps/pull/3)
 
-🏆 I bumped into this by accident while googling this subject. At first the documentation was a bit off-putting, but once I got desperate enough, I decided to give it a go. I definitely recommend checking it out, since it has been easily the best solution I've found so far. Once you start using it, you will find the documentation actually quite nicely structured.
+I bumped into this by accident while googling this subject. At first the documentation was a bit off-putting, but once I got desperate enough, I decided to give it a go. I definitely recommend checking it out, since it has been easily the best solution I've found so far. Once you start using it, you will find the documentation actually quite nicely structured.
 
 Besides just offering a solution to the problem I described above, I wanted to make sure it also works with other libraries we're often using in our apps. There are currently 2 different branches I made for this:
 - ![](https://travis-ci.org/rikukissa/redux-isolated-apps.svg?branch=subspaces-redux-loop) [redux-loop](https://github.com/rikukissa/redux-isolated-apps/pull/4)
 - ![](https://travis-ci.org/rikukissa/redux-isolated-apps.svg?branch=subspaces-redux-form) [redux-form](https://github.com/rikukissa/redux-isolated-apps/pull/6)
+
+**Production experiences**:
+After using this method in production for couple of months now, I already feel like some parts of the codebase become overly complicated. Most of it is because it's quite difficult to see just by looking at the code to which "subspace" the component / actions belong to. This can potentially be remedied by avoiding the usage of `globalAction` and coming up with some way of achieving your goal just by using component props. Other thing I would advice against is the usage of [wormholes](https://github.com/ioof-holdings/redux-subspace/blob/master/docs/advanced/GlobalState.md#wormholes). It's most likely better to pass the required data down as props.
 
 **Pros**:
 - Easy to use, well tested & documented
 - Integrates well with middlewares and store enhancers like redux-saga, redux-observable & redux-loop
 
 **Cons:**
+- Might hurt the readability of your code in the long run
 - Subspaced component's state becomes a part of your app's store state, which by default means, that you have to define a location for that explicitly in your reducer. This makes it a bit tricky to dynamically add new subspaced components. However, there is an additional library [redux-dynamic-reducer](https://github.com/ioof-holdings/redux-dynamic-reducer) for addressing this problem.
 - The reducer & action creators are dependant on the main app's middlewares / store enhancers. Using redux-thunk / redux-loop in the subspaced component's logic forces the app to also have them installed. This is not a problem with substores.
 - It didn't support redux-loop when I first started using it, but I managed to fix this by writing a wrapper function, that now can be found as the [`redux-subspace-loop`](https://github.com/ioof-holdings/redux-subspace/tree/master/packages/redux-subspace-loop) package on npm.
-
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
