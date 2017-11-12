@@ -2,7 +2,11 @@
 
 <img src="https://raw.githubusercontent.com/rikukissa/redux-isolated-apps/master/diagram.png" width="452" />
 
-The idea of this repository is to provide a sandbox for testing different methods of making a Redux app more scalable. Currently on the master branch, I have a component called [`<UserCreator />`](https://github.com/rikukissa/redux-isolated-apps/tree/master/src/UserCreator) that has the purpose of being a component/widget/fragment that the user would use for creating new users. Basically it's just an text input and a submit button.
+The idea of this repository is to provide a sandbox for testing different methods of making a Redux app more scalable by isolating complex pieces of logic to independent, reusable blocks of code. This could potentially be useful for component authors as well, since instead of just using React's API (state, setState, ...) you would be able to use Redux for handling your component's internal logic!
+
+### Structure of this repository
+
+Currently on the master branch, I have a component called [`<UserCreator />`](https://github.com/rikukissa/redux-isolated-apps/tree/master/src/UserCreator) that has the purpose of being a component/widget/fragment that the user would use for creating new users. Basically it's just an text input and a submit button.
 
 From the developer's point of view, I would want to be able to include this component anywhere in my app, without always having to manually connect to a store. So in the best case scenario, the only thing you would need is a `<UserCreator />` tag.
 
