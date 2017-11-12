@@ -1,5 +1,7 @@
 # Scaling a Redux app - reusable containers
 
+![Diagram](https://raw.githubusercontent.com/rikukissa/redux-isolated-apps/master/diagram.png)
+
 The idea of this repository is to provide a sandbox for testing different methods of making a Redux app more scalable. Currently on the master branch, I have a component called [`<UserCreator />`](https://github.com/rikukissa/redux-isolated-apps/tree/master/src/UserCreator) that has the purpose of being a component/widget/fragment that the user would use for creating new users. Basically it's just an text input and a submit button.
 
 From the developer's point of view, I would want to be able to include this component anywhere in my app, without always having to manually connect to a store. So in the best case scenario, the only thing you would need is a `<UserCreator />` tag.
@@ -64,7 +66,7 @@ Besides just offering a solution to the problem I described above, I wanted to m
 **Cons:**
 - Subspaced component's state becomes a part of your app's store state, which by default means, that you have to define a location for that explicitly in your reducer. This makes it a bit tricky to dynamically add new subspaced components. However, there is an additional library [redux-dynamic-reducer](https://github.com/ioof-holdings/redux-dynamic-reducer) for addressing this problem.
 - The reducer & action creators are dependant on the main app's middlewares / store enhancers. Using redux-thunk / redux-loop in the subspaced component's logic forces the app to also have them installed. This is not a problem with substores.
-- It didn't support redux-loop when I first started using it, but I managed to fix this by writing a wrapper function, that now can be found as the [`redux-subspace-loop`](https://github.com/ioof-holdings/redux-subspace/tree/master/packages/redux-subspace-loop) package on npm. 
+- It didn't support redux-loop when I first started using it, but I managed to fix this by writing a wrapper function, that now can be found as the [`redux-subspace-loop`](https://github.com/ioof-holdings/redux-subspace/tree/master/packages/redux-subspace-loop) package on npm.
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
