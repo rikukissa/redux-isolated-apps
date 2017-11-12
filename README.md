@@ -11,7 +11,7 @@ From the developer's point of view, I would want to be able to include this comp
   - It can only access its own state + state given to it as props
 - It can be attached anywhere on the app without any additional setup
 - Middleware / enhancers used in its reducer / action creator implementation should be completely independent from app's
-  - e.g. Using redux-saga as a part of UserCreator does not mean it should be also added to `src/store.js`
+  - e.g. Using redux-saga as a part of UserCreator does not mean it should be also added to `src/store.js`
 
 I would also want it to be isolated in a way that it wouldn't share any state with other UserCreators in my app. In the future it will include a lot of logic (both async and sync), and for that reason I want to be able to leverage the action/action creator/reducer pattern Redux provides.
 
@@ -35,12 +35,17 @@ I got this idea from [Redux's documentation](http://redux.js.org/docs/recipes/Is
 - You can reuse the component dynamically anywhere without needing to explicitely define it in reducer
   - App store state remains a bit cleaner
 
-**Cons:**
+**Challenges:**
 - No way of calling global actions _(Not sure if this is only a bad thing)_
   - **Solutions:**
-    - Adding callback props to widget
-      - **Cons:**
-        - Transforming reducer events into callback prop calls gets a bit hairy
+    - Create a "bridge" between internal actions and prop callback calls. Bridge methods are called after the internal logic has changed the state
+      ```js
+      function actionsToProps(props) {
+        return {
+          [CREATE_USER]: (state, action) => props.onUserCreated({ name: state.name })
+        };
+      }
+      ```
 
 ### [redux-subspace](https://github.com/ioof-holdings/redux-subspace)
 ![](https://travis-ci.org/rikukissa/redux-isolated-apps.svg?branch=subspaces)
