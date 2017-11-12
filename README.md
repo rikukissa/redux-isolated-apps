@@ -57,14 +57,13 @@ I got this idea from [Redux's documentation](http://redux.js.org/docs/recipes/Is
 ![](https://travis-ci.org/rikukissa/redux-isolated-apps.svg?branch=subspaces)
 [Pull request](https://github.com/rikukissa/redux-isolated-apps/pull/3)
 
+>After using this method in production for couple of months now, I already feel like some parts of the codebase become overly complicated. Most of it is because it's quite difficult to see just by looking at the code to which "subspace" the component / actions belong to. This can potentially be remedied by avoiding the usage of `globalAction` and coming up with some way of achieving your goal just by using component props. Other thing I would advice against is the usage of [wormholes](https://github.com/ioof-holdings/redux-subspace/blob/master/docs/advanced/GlobalState.md#wormholes). It's most likely better to pass the required data down as props.
+
 I bumped into this by accident while googling this subject. At first the documentation was a bit off-putting, but once I got desperate enough, I decided to give it a go. I definitely recommend checking it out, since it has been easily the best solution I've found so far. Once you start using it, you will find the documentation actually quite nicely structured.
 
 Besides just offering a solution to the problem I described above, I wanted to make sure it also works with other libraries we're often using in our apps. There are currently 2 different branches I made for this:
 - ![](https://travis-ci.org/rikukissa/redux-isolated-apps.svg?branch=subspaces-redux-loop) [redux-loop](https://github.com/rikukissa/redux-isolated-apps/pull/4)
 - ![](https://travis-ci.org/rikukissa/redux-isolated-apps.svg?branch=subspaces-redux-form) [redux-form](https://github.com/rikukissa/redux-isolated-apps/pull/6)
-
-**Production experiences**:
-After using this method in production for couple of months now, I already feel like some parts of the codebase become overly complicated. Most of it is because it's quite difficult to see just by looking at the code to which "subspace" the component / actions belong to. This can potentially be remedied by avoiding the usage of `globalAction` and coming up with some way of achieving your goal just by using component props. Other thing I would advice against is the usage of [wormholes](https://github.com/ioof-holdings/redux-subspace/blob/master/docs/advanced/GlobalState.md#wormholes). It's most likely better to pass the required data down as props.
 
 **Pros**:
 - Easy to use, well tested & documented
