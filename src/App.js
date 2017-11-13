@@ -1,24 +1,16 @@
 import React, { Component } from "react";
-import UserCreator from "./UserCreator";
 import { connect } from "react-redux";
-
-import { userCreated } from "./state/users";
+import RandomGif from "./RandomGif";
+import { increment } from "./state/app";
 
 class App extends Component {
   render() {
-    const { users, createUser } = this.props;
     return (
       <div>
-        <UserCreator onUserCreated={createUser} id="userCreator1" />
-        <UserCreator onUserCreated={createUser} id="userCreator2" />
-        <UserCreator onUserCreated={createUser} id="userCreator3" />
-        <div id="userList">
-          {users.map(({ name }) =>
-            <div key={name} className="user">
-              {name}
-            </div>
-          )}
-        </div>
+        <h1>
+          {this.props.count}
+        </h1>
+        <RandomGif onLoad={this.props.increment} />
       </div>
     );
   }
@@ -26,12 +18,12 @@ class App extends Component {
 
 function mapStateToProps(state) {
   return {
-    users: state.users
+    count: state.app.count
   };
 }
 
 const mapDispatchToProps = {
-  createUser: userCreated
+  increment: increment
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
