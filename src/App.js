@@ -1,16 +1,25 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import RandomGif from "./RandomGif";
-import { increment } from "./state/app";
+import RandomGifPair from "./RandomGifPair";
+import RandomGifPairOfPairs from "./RandomGifPairOfPairs";
+import { increment, toggleButton } from "./state/app";
 
 class App extends Component {
   render() {
+    const { count, increment, toggleButton, buttonEnabled } = this.props;
+
     return (
       <div>
         <h1>
-          {this.props.count}
+          {count}
         </h1>
-        <RandomGif onLoad={this.props.increment} />
+        <RandomGif onLoad={increment} />
+        <RandomGifPair onLoad={increment} />
+        <RandomGifPairOfPairs onLoad={increment} />
+        <button style={{ background: buttonEnabled ? "green" : "red" }} onClick={toggleButton}>
+          Toggle
+        </button>
       </div>
     );
   }
@@ -18,12 +27,14 @@ class App extends Component {
 
 function mapStateToProps(state) {
   return {
-    count: state.app.count
+    count: state.app.count,
+    buttonEnabled: state.app.buttonEnabled
   };
 }
 
 const mapDispatchToProps = {
-  increment: increment
+  increment: increment,
+  toggleButton: toggleButton
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
