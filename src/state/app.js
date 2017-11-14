@@ -1,19 +1,20 @@
 const INCREMENT = "INCREMENT";
-const TOGGLE_BUTTON = "TOGGLE_BUTTON";
-
-const initialState = { count: 0, buttonEnabled: false };
-
 export function increment() {
   return { type: INCREMENT };
 }
+
+const TOGGLE_BUTTON = "TOGGLE_BUTTON";
 export function toggleButton() {
   return { type: TOGGLE_BUTTON };
 }
 
+const initialState = { count: 0, buttonEnabled: false };
+
 export default function(state = initialState, action) {
   switch (action.type) {
     case INCREMENT:
-      return { ...state, count: state.count + (state.buttonEnabled ? 2 : 1) };
+      const amountToIncrement = state.buttonEnabled ? 2 : 1;
+      return { ...state, count: state.count + amountToIncrement };
     case TOGGLE_BUTTON:
       return { ...state, buttonEnabled: !state.buttonEnabled };
     default:
