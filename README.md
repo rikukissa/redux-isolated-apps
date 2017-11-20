@@ -2,7 +2,9 @@
 
 <img src="https://raw.githubusercontent.com/rikukissa/redux-isolated-apps/master/diagram.png" width="452" />
 
-The idea of this repository is to provide a sandbox for testing different methods of making a Redux app more scalable by isolating complex pieces of logic to independent, reusable blocks of code. This could potentially be useful for component authors as well, since instead of just using React's API (state, setState, ...) you would be able to use Redux for handling your component's internal logic!
+The idea here is to experiment with building Redux applications by reusing Redux applications. So basically a classic Yo Dawg situation. I'm doing this in the name of science and in the hope that future generations would have a more structured way of building user interfaces.
+
+This repository functions as a sandbox for testing different methods of cluing these Redux apps together. The way I see it, this could potentially lead into more scalable Redux codebases as you would now have a concept even greater than components or containers, that both are quite low-level. Also a really practical thing you could use this for would be a bit more complex reusable components like date pickers that have a state of their own, but have to use `this.setState`, component state & other funny stuff for managing the state.
 
 ### Structure of this repository
 
@@ -33,7 +35,7 @@ I've written a few [tests](https://github.com/rikukissa/redux-isolated-apps/blob
 
 I got this idea from [Redux's documentation](http://redux.js.org/docs/recipes/IsolatingSubapps.html). It's fairly simple to see what's going on just by looking at the code and I actually managed to get everything working with this method as well. At first my main concern was whether the tooling will play well with multiple stores, but it turns out that at least Redux DevTools lets you choose which store you want to observe.
 
-**Pros:**
+#### Pros
 - Minimalistic approach, easy to understand
 - No additional dependencies needed
 - Minimal code changes required when isolating pieces of UI
@@ -41,23 +43,72 @@ I got this idea from [Redux's documentation](http://redux.js.org/docs/recipes/Is
 - You can reuse the component dynamically anywhere without needing to explicitely define it in reducer
   - App store state remains a bit cleaner
 
-**Challenges:**
-- No way of calling global actions _(Not sure if this is only a bad thing)_
-  - **Solutions:**
-    - Create a "bridge" between internal actions and prop callback calls. Bridge methods are called after the internal logic has changed the state
-      ```js
-      function actionsToProps(props) {
-        return {
-          [CREATE_USER]: (state, action) => props.onUserCreated({ name: state.name })
-        };
-      }
-      ```
+#### Cons/Challenges
+##### Case 1.
+**Example case**
+> I want to notify the parent component about created user **after** it has been succesfully stored to our API
+
+```js
+<UserCreator onUserCreated={/* call this after save */} />
+```
+
+**The problem**
+> How do I call **this.props.onUserCreated** as a consequence of a dispatched **MY_NESTED/USER_SAVED_SUCCESS**?
+
+
+**Possible solutions**
+Since we are creating a nested store for our component, we might as well apply middlewares to that store. We could, for instance create a "bridge" between internal actions and prop callback calls. The underlying middleware would take care of calling these defined methods when ever a suitable action is dispatched.
+
+```js
+// like mapStateToProps & mapDispatchToProps
+function actionsToProps(props) {
+  return {
+    /* dispatched action */           /* callback prop call */
+    [CREATE_USER]: (state, action) => props.onUserCreated({ name: state.name })
+  };
+}
+```
+
+The thing that I don't like about this approach is, that you now have to expose action types to components / containers. It seems like a small thing that I would be willing to live with, but I have a feeling it might be a telltale sign of an architectural problem.
+
+
+
+##### Case 2.
+
+**Example case**
+> I want to create a button for clearing all UserCreator inputs
+
+🙃  This is were it gets even more complicated.
+
+**The problem**
+> How do I trigger **MY_NESTED/CLEAR** as a consequence of **TOP_LEVEL/CLEAR_ALL**?
+
+
+The only semi-clean way of doing it that I could come up with, would be to create a `top-level action -> nested store action` bridge. Something similar to what you saw above, but with 
+
+```js
+// like mapStateToProps & mapDispatchToProps & actionsToProps
+function actionsToActions() {
+  return {
+    /* top-level */ /* nested */
+    [CLEAR_ALL]: CLEAR_INPUT
+  };
+}
+```
+
+However, it would still have the same problem with components knowing about actions. On top of that, as far as I know this impossible to achieve with a vanilla Redux store instance. This is because a Redux store doesn't provide a way of listening actions it receives. This is why we used a middleware to solve the previous problem. Now we can't really do that, because we are not no longer in control of the store which exists outside the scope of our UserCreator component 😔
+
+**Possible solutions**
+I wish I had one.
+
+---
 
 ### [redux-subspace](https://github.com/ioof-holdings/redux-subspace)
 ![](https://travis-ci.org/rikukissa/redux-isolated-apps.svg?branch=subspaces)
 [Pull request](https://github.com/rikukissa/redux-isolated-apps/pull/3)
 
 >After using this method in production for couple of months now, I already feel like some parts of the codebase become overly complicated. Most of it is because it's quite difficult to see just by looking at the code to which "subspace" the component / actions belong to. This can potentially be remedied by avoiding the usage of `globalAction` and coming up with some way of achieving your goal just by using component props. Other thing I would advice against is the usage of [wormholes](https://github.com/ioof-holdings/redux-subspace/blob/master/docs/advanced/GlobalState.md#wormholes). It's most likely better to pass the required data down as props.
+**Would still recommend this library and I'm keen to see how it evolves in the future**
 
 I bumped into this by accident while googling this subject. At first the documentation was a bit off-putting, but once I got desperate enough, I decided to give it a go. I definitely recommend checking it out, since it has been easily the best solution I've found so far. Once you start using it, you will find the documentation actually quite nicely structured.
 
