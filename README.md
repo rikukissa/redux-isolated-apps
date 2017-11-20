@@ -78,7 +78,7 @@ The thing that I don't like about this approach is, that you now have to expose 
 **Example case**
 > I want to create a button for clearing all UserCreator inputs
 
-🙃  This is were it gets even more complicated.
+🙃  This is where it gets even more complicated.
 
 **The problem**
 > How do I trigger **MY_NESTED/CLEAR** as a consequence of **TOP_LEVEL/CLEAR_ALL**?
