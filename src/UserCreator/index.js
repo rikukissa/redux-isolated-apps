@@ -1,31 +1,12 @@
-import React, { Component } from "react";
-import { updateNameField, createUser } from "./actions";
-import { connect } from "react-redux";
+import reducer from "./reducer";
+import isolate from "../utils/Isolate";
+import UserCreatorContainer from "./container";
+import { CREATE_USER } from "./actions";
 
-class UserCreator extends Component {
-  updateNameField = event => {
-    this.props.updateNameField(event.target.value);
+function mapActionsToProps(props) {
+  return {
+    [CREATE_USER]: (state, action) => props.onUserCreated({ name: state.name })
   };
-  createUser = event => {
-    event.preventDefault();
-    this.props.createUser();
-  };
-  render() {
-    const { name } = this.props;
-    return (
-      <form onSubmit={this.createUser}>
-        <h3>User creator</h3>
-        <input type="text" value={name} placeholder="name" onChange={this.updateNameField} />
-        <button>Save</button>
-      </form>
-    );
-  }
 }
 
-const mapStateToProps = state => ({ name: state.name });
-const mapDispatchToProps = {
-  updateNameField: updateNameField,
-  createUser: createUser
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(UserCreator);
+export default isolate(reducer, mapActionsToProps)(UserCreatorContainer);
