@@ -1,3 +1,5 @@
+import { globalAction } from "redux-subspace";
+import { userCreated } from "../state/users";
 export const UPDATE_NAME_FIELD = "USER_CREATOR/UPDATE_NAME_FIELD";
 export function updateNameField(name) {
   return {
@@ -6,9 +8,9 @@ export function updateNameField(name) {
   };
 }
 
-export const CREATE_USER = "USER_CREATOR/CREATE_USER";
 export function createUser() {
-  return {
-    type: CREATE_USER
+  return (dispatch, getState, a, b) => {
+    const user = getState();
+    dispatch(globalAction(userCreated(user)));
   };
 }
