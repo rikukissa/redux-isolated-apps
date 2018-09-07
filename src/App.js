@@ -1,22 +1,25 @@
 import React, { Component } from "react";
-import UserCreator from "./UserCreator";
 import { connect } from "react-redux";
+import RandomGif from "./RandomGif";
+import RandomGifPair from "./RandomGifPair";
+import RandomGifPairOfPairs from "./RandomGifPairOfPairs";
+import { increment, toggleButton } from "./state/app";
 
 class App extends Component {
   render() {
-    const { users } = this.props;
+    const { count, increment, toggleButton, buttonEnabled } = this.props;
+
     return (
       <div>
-        <UserCreator />
-        <UserCreator />
-        <UserCreator />
-        <div id="userList">
-          {users.map(({ name }) =>
-            <div key={name} className="user">
-              {name}
-            </div>
-          )}
-        </div>
+        <h1>
+          {count}
+        </h1>
+        <RandomGif onLoad={increment} />
+        <RandomGifPair onLoad={increment} />
+        <RandomGifPairOfPairs onLoad={increment} />
+        <button style={{ background: buttonEnabled ? "green" : "red" }} onClick={toggleButton}>
+          Toggle
+        </button>
       </div>
     );
   }
@@ -24,8 +27,14 @@ class App extends Component {
 
 function mapStateToProps(state) {
   return {
-    users: state.users
+    count: state.app.count,
+    buttonEnabled: state.app.buttonEnabled
   };
 }
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = {
+  increment: increment,
+  toggleButton: toggleButton
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
